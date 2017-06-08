@@ -15,3 +15,4 @@ class ArticleItem(scrapy.Item):
     fav_num = Field()
     collections = Field()
     comment = Field()
+    description = Field()
