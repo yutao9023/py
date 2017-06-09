@@ -8,7 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-
+import os
 BOT_NAME = 'article'
 
 SPIDER_MODULES = ['article.spiders']
@@ -66,9 +66,15 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'article.pipelines.ArticlePipeline': 300,
+    'article.pipelines.ArticlePipeline': 300,
     'article.pipelines.MongoPipeline': 500,
+    'scrapy.pipelines.images.ImagesPipeline': 200
 }
+
+IMAGES_URLS_FIELD = 'front_image_url'  #会将IMAGES_URL_FIELD当做列表来处理
+project_dir = os.path.abspath(os.path.dirname(__file__))
+IMAGES_STORE = os.path.join(project_dir, 'images')
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
