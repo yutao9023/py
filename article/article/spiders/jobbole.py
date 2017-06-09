@@ -12,13 +12,15 @@ class JobboleSpider(scrapy.Spider):
         for info in response.xpath('//div[@class="post floated-thumb"]'):
             href = info.xpath('.//a[@class="archive-title"]/@href').extract()[0]
             description = info.xpath('.//span[@class="excerpt"]/p/text()').extract()[0]
-            yield scrapy.Request(href,meta={'description':description},callback=self.parse_detail)  #把上一級的信息傳遞到下一級用meta屬性
+            #如果href是全的 那麽response.urljoin(href)相當於href 如果不是全的 response.urljoin 將href和域名拼接 重要
+            yield scrapy.Request(response.urljoin(href),meta={'description':description},callback=self.parse_detail)  #把上一級的信息傳遞到下一級用meta屬性
         next_page = response.xpath('//a[@class="next page-numbers"]/@href').extract()[0]
         if next_page:
-            yield scrapy.Request(next_page,callback=self.parse)
+            yield scrapy.Request(response.urljoin(next_page),callback=self.parse)
 
     def parse_detail(self,response):
         item = ArticleItem()
+        item['post_url'] = response.url
         item['description'] = response.meta.get('description')
         item['title'] = response.xpath('//div[@class="entry-header"]/h1/text()').extract()[0]
         item['date'] = response.xpath('//p[@class="entry-meta-hide-on-mobile"]/text()').extract()[0].strip().replace('·', '').strip()

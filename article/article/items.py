@@ -16,3 +16,4 @@ class ArticleItem(scrapy.Item):
     collections = Field()
     comment = Field()
     description = Field()
+    post_url = Field()

@@ -1,3 +1,3 @@
 from scrapy.cmdline import execute
 
-execute(['scrapy','crawl','jobole'])
+execute(['scrapy','crawl','jobbole'])
