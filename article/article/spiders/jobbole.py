@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from article.items import ArticleItem
+from article.utils.common import get_md5
 
 
 class JobboleSpider(scrapy.Spider):
@@ -21,6 +22,7 @@ class JobboleSpider(scrapy.Spider):
 
     def parse_detail(self,response):
         item = ArticleItem()
+        item['url_object_id'] = get_md5(response.url)
         item['front_image_url'] = [response.meta.get('front_image_url', '')]
         item['post_url'] = response.url
         item['description'] = response.meta.get('description', '') #默认为空

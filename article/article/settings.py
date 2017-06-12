@@ -68,7 +68,8 @@ DEFAULT_REQUEST_HEADERS = {
 ITEM_PIPELINES = {
     'article.pipelines.ArticlePipeline': 300,
     'article.pipelines.MongoPipeline': 500,
-    'scrapy.pipelines.images.ImagesPipeline': 200
+    # 'scrapy.pipelines.images.ImagesPipeline': 200,
+    'article.pipelines.ArticleImagePipeline': 1,
 }
 
 IMAGES_URLS_FIELD = 'front_image_url'  #会将IMAGES_URL_FIELD当做列表来处理

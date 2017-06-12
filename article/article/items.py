@@ -18,3 +18,5 @@ class ArticleItem(scrapy.Item):
     description = Field()
     post_url = Field()
     front_image_url = Field()
+    front_image_path = Field()
+    url_object_id = Field()
