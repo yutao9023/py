@@ -46,7 +46,7 @@ def parse_detail_page(url):
     rating = html.xpath('//strong[@property="v:average"]/text()')[0]
     votes = html.xpath('//span[@property="v:votes"]/text()')[0]
     category = html.xpath('//span[@property="v:genre"]/text()')
-    summary = html.xpath('//span[@property="v:summary"]/text()')[0].strip() if soup.find('property','v:summary') else None
+    summary = html.xpath('//span[@property="v:summary"]/text()')[0].strip() if soup.find('span',property='v:summary') else None
     actors = html.xpath('//a[@rel="v:starring"]/text()')
     print({'title':title, 'rating':float(rating),'votes':int(votes),'catagory':category,'summary':summary,'actors':actors})
     yield {'title':title, 'rating':float(rating),'votes':int(votes),'catagory':category,'summary':summary,'actors':actors}
